@@ -23,7 +23,7 @@ http-response functionId=newUserInfo tag=自动上车-id77, script-path=https://
 ===================
 [rewrite_local]
 ^https:\/\/api\-dd\.jd\.com\/client\.action\?functionId=getSessionLog url script-request-header https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js
-functionId=newUserInfo url script-response-body https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js
+functionId=getChatSessionLog url script-response-body https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js
 
  */
 
@@ -46,7 +46,7 @@ if (!CK) {
 }
 
 try {
-  const pinRegex = /unickName":"(.*?)"/;
+  const pinRegex = /pin":"(.*?)"/;
   if ($response.body && pinRegex.test($response.body)) {
     pin = encodeURIComponent($response.body.match(pinRegex)?.[1]);
   } else {
