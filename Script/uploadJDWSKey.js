@@ -48,8 +48,8 @@ if (!CK) {
 
 try {
   const pinRegex = /unickName":"(.*?)"/;
-  if ($response.body && pinRegex.test($response.body)) {
-    pin = $response.body.match(pinRegex)?.[1];
+  if ($response?.body && pinRegex.test($response?.body)) {
+    pin = $response?.body.match(pinRegex)?.[1];
   }
   if (pin) {
     pin = encodeURIComponent(pin);
