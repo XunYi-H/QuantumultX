@@ -9,21 +9,21 @@
 ===================
 [Script]
 自动上车-id77 = type=http-request,pattern=^https:\/\/api\-dd\.jd\.com\/client\.action\?functionId=getSessionLog,requires-body=1,max-size=0,timeout=1000,script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,script-update-interval=0
-自动上车-id77 = type=http-request,pattern=functionId=getChatSessionLog,requires-body=1,max-size=0,timeout=1000,script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,script-update-interval=0
+自动上车-id77 = type=http-request,pattern=functionId=newUserInfo,requires-body=1,max-size=0,timeout=1000,script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,script-update-interval=0
 
 ===================
 【Loon脚本配置】:
 ===================
 [Script]
 http-request ^https:\/\/api\-dd\.jd\.com\/client\.action\?functionId=getSessionLog tag=自动上车-id77, script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,requires-body=1
-http-request functionId=getChatSessionLog tag=自动上车-id77, script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,requires-body=1
+http-request functionId=newUserInfo tag=自动上车-id77, script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,requires-body=1
 
 ===================
 【 QX  脚本配置 】:
 ===================
 [rewrite_local]
 ^https:\/\/api\-dd\.jd\.com\/client\.action\?functionId=getSessionLog url script-request-header https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js
-functionId=getChatSessionLog url script-request-body https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js
+functionId=newUserInfo url script-request-body https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js
 
  */
 
@@ -46,15 +46,13 @@ if (!CK) {
 }
 
 try {
-  const pinRegex = /pin%22%3A%22(?:(.+?)%22)/;
+  const pinRegex = /unickName":"(.*?)"/;
   if ($request.body && pinRegex.test($request.body)) {
-    pin = encodeURIComponent(
-      $request.body.match(/pin%22%3A%22(?:(.+?)%22)/)[1]
-    );
+    pin = encodeURIComponent($request.body.match(pinRegex)?.[1]);
   } else {
-    pin = CK.match(/pin=([^=;]+?);/)[1];
+    pin = CK.match(/pin=([^=;]+?);/)?.[1];
   }
-  key = CK.match(/wskey=([^=;]+?);/)[1];
+  key = CK.match(/wskey=([^=;]+?);/)?.[1];
 } catch (error) {
   console.log(error);
 
