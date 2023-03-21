@@ -67,68 +67,68 @@ try {
     $.msg($.name, $.subt, $.desc);
 
     $.done();
-  }
-
-  try {
-    const cookie = `pin=${pin};wskey=${key};`;
-    const userName = pin;
-    const decodeName = decodeURIComponent(userName);
-    const cookiesData = JSON.parse($.getData('wskeyList') || '[]');
-    let updateIndex;
-    let cookieName = '【账号】';
-    const existCookie = cookiesData.find((item, index) => {
-      const ck = item.cookie;
-      const Account = ck
-        ? ck.match(/pin=.+?;/)
-          ? ck.match(/pin=(.+?);/)[1]
-          : null
-        : null;
-      const verify = userName === Account;
-      if (verify) {
-        updateIndex = index;
-        if (ck !== cookie) {
-          $.needUpload = true;
+  } else {
+    try {
+      const cookie = `pin=${pin};wskey=${key};`;
+      const userName = pin;
+      const decodeName = decodeURIComponent(userName);
+      const cookiesData = JSON.parse($.getData('wskeyList') || '[]');
+      let updateIndex;
+      let cookieName = '【账号】';
+      const existCookie = cookiesData.find((item, index) => {
+        const ck = item.cookie;
+        const Account = ck
+          ? ck.match(/pin=.+?;/)
+            ? ck.match(/pin=(.+?);/)[1]
+            : null
+          : null;
+        const verify = userName === Account;
+        if (verify) {
+          updateIndex = index;
+          if (ck !== cookie) {
+            $.needUpload = true;
+          }
         }
-      }
-      return verify;
-    });
-    let tipPrefix = '';
-    if (existCookie) {
-      cookiesData[updateIndex].cookie = cookie;
-      cookieName = '【账号' + (updateIndex + 1) + '】';
-      tipPrefix = '更新京东 wskey';
-      $.tips = '';
-    } else {
-      cookiesData.push({
-        userName: decodeName,
-        cookie: cookie,
+        return verify;
       });
-      cookieName = '【账号' + cookiesData.length + '】';
-      tipPrefix = '首次写入京东 wskey';
-      $.needUpload = true;
-      $.tips = `\n如果误用此脚本，App退出账号即可。\n如需上车，联系 https://t.me/id77_GitHub`;
-    }
-    // $.msg(
-    //   '用户名: ' + decodeName,
-    //   '',
-    //   tipPrefix + cookieName + 'Cookie成功 🎉'
-    // );
-    if ($.needUpload) {
-      await updateCookie(cookie);
-      if ($.uploadState) {
-        $.setData(JSON.stringify(cookiesData, null, 2), 'wskeyList');
+      let tipPrefix = '';
+      if (existCookie) {
+        cookiesData[updateIndex].cookie = cookie;
+        cookieName = '【账号' + (updateIndex + 1) + '】';
+        tipPrefix = '更新京东 wskey';
+        $.tips = '';
+      } else {
+        cookiesData.push({
+          userName: decodeName,
+          cookie: cookie,
+        });
+        cookieName = '【账号' + cookiesData.length + '】';
+        tipPrefix = '首次写入京东 wskey';
+        $.needUpload = true;
+        $.tips = `\n如果误用此脚本，App退出账号即可。\n如需上车，联系 https://t.me/id77_GitHub`;
       }
-      await showMsg();
-    } else {
-      console.log(`🍪wskey 没有改变`);
+      // $.msg(
+      //   '用户名: ' + decodeName,
+      //   '',
+      //   tipPrefix + cookieName + 'Cookie成功 🎉'
+      // );
+      if ($.needUpload) {
+        await updateCookie(cookie);
+        if ($.uploadState) {
+          $.setData(JSON.stringify(cookiesData, null, 2), 'wskeyList');
+        }
+        await showMsg();
+      } else {
+        console.log(`🍪wskey 没有改变`);
+      }
+    } catch (error) {
+      $.msg('写入京东 wskey 失败', '', '请重试 ⚠️');
+      console.log(
+        `\n写入京东 wskey 出现错误 ‼️\n${JSON.stringify(
+          error
+        )}\n\n${error}\n\n${JSON.stringify($request.headers)}\n`
+      );
     }
-  } catch (error) {
-    $.msg('写入京东 wskey 失败', '', '请重试 ⚠️');
-    console.log(
-      `\n写入京东 wskey 出现错误 ‼️\n${JSON.stringify(
-        error
-      )}\n\n${error}\n\n${JSON.stringify($request.headers)}\n`
-    );
   }
 })()
   .catch((e) => $.logErr(e))
