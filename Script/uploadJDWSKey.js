@@ -49,7 +49,10 @@ if (!CK) {
 try {
   const pinRegex = /unickName":"(.*?)"/;
   if ($response.body && pinRegex.test($response.body)) {
-    pin = encodeURIComponent($response.body.match(pinRegex)?.[1]);
+    pin = $response.body.match(pinRegex)?.[1];
+  }
+  if (pin) {
+    pin = encodeURIComponent(pin);
   } else {
     pin = CK.match(/pin=([^=;]+?);/)?.[1];
   }
