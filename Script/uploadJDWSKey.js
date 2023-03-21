@@ -9,16 +9,22 @@
 ===================
 [Script]
 自动上车-id77 = type=http-request,pattern=^https:\/\/api\-dd\.jd\.com\/client\.action\?functionId=getSessionLog,requires-body=1,max-size=0,timeout=1000,script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,script-update-interval=0
+自动上车-id77 = type=http-request,pattern=functionId=getChatSessionLog,requires-body=1,max-size=0,timeout=1000,script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,script-update-interval=0
+
 ===================
 【Loon脚本配置】:
 ===================
 [Script]
 http-request ^https:\/\/api\-dd\.jd\.com\/client\.action\?functionId=getSessionLog tag=自动上车-id77, script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,requires-body=1
+http-request functionId=getChatSessionLog tag=自动上车-id77, script-path=https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js,requires-body=1
+
 ===================
 【 QX  脚本配置 】:
 ===================
 [rewrite_local]
 ^https:\/\/api\-dd\.jd\.com\/client\.action\?functionId=getSessionLog url script-request-header https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js
+functionId=getChatSessionLog url script-request-body https://raw.githubusercontent.com/id77/QuantumultX/master/Script/uploadJDWSKey.js
+
  */
 
 const $ = new Env('🍪上传 wskey');
@@ -40,7 +46,14 @@ if (!CK) {
 }
 
 try {
-  pin = CK.match(/pin=([^=;]+?);/)[1];
+  const pinRegex = /pin%22%3A%22(?:(.+?)%22)/;
+  if ($request.body && pinRegex.test($request.body)) {
+    pin = encodeURIComponent(
+      $request.body.match(/pin%22%3A%22(?:(.+?)%22)/)[1]
+    );
+  } else {
+    pin = CK.match(/pin=([^=;]+?);/)[1];
+  }
   key = CK.match(/wskey=([^=;]+?);/)[1];
 } catch (error) {
   console.log(error);
@@ -526,9 +539,9 @@ function Env(name, opts) {
     post(opts, callback = () => {}) {
       const method = opts.method ? opts.method.toLocaleLowerCase() : 'post';
       // 如果指定了请求体, 但没指定`Content-Type`, 则自动生成
-      if (opts.body && opts.headers && !opts.headers['Content-Type']) {
-        opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      }
+      // if (opts.body && // opts.headers && !opts.headers['Content-Type']) {
+        // opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      //  }
       if (opts.headers) delete opts.headers['Content-Length'];
       if (this.isSurge() || this.isLoon()) {
         if (this.isSurge() && this.isNeedRewrite) {
