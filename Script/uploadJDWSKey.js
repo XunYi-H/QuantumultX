@@ -50,7 +50,7 @@ if (!CK) {
 }
 
 try {
-  const pinRegex = /unickName":"(.*?)"|customer","pin":"(.+?)"/;
+  const pinRegex = /(?:unickName|customer","pin)":"(.+?)"/;
   if ($response?.body && pinRegex.test($response?.body)) {
     pin = $response?.body.match(pinRegex)?.[1];
   }
