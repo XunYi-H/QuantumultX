@@ -4,7 +4,7 @@
  注：如有变更才会上传，如果 wskey 没变，不会重复上传；新人需要联系我，我手动确认一次才会入库。然后自己申请telegram bot，提供该bot token给我，以接收脚本通知。
  https://t.me/id77_GitHub
 
- hostname = api-dd.jd.com
+ hostname = api-dd.jd.com, api.m.jd.com
 
 【Surge脚本配置】:
 ===================
