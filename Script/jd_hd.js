@@ -512,7 +512,8 @@ try {
         localStorage.setItem('vConsole_switch_hide', 'Y')
       }
 
-      if (_${prefix}_id77_cookies.length > 0) _${prefix}_id77_changeBtns();
+      _${prefix}_id77_changeBtns();
+      // if (_${prefix}_id77_cookies.length > 0) _${prefix}_id77_changeBtns();
     }
     
     document.addEventListener('dblclick', function (e) {
@@ -789,7 +790,7 @@ try {
           // if (_${prefix}_id77_cookies.length > 0) {
              _${prefix}_id77_vConsole.addPlugin(ID77Plugin);
              _${prefix}_id77_vConsole.showPlugin("id77_plugin");
-            _${prefix}_id77_changeTabs();
+             _${prefix}_id77_changeTabs();
           // }
         // }
 
