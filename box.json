@@ -303,7 +303,6 @@
           "val": "",
           "type": "text"
         },
-
         {
           "id": "id77_jegotrip_token",
           "name": "Token",
@@ -325,6 +324,17 @@
       "id": "id77_phone",
       "name": "手机集",
       "keys": ["id77_phone_arr"],
+      "settings": [
+        {
+          "id": "id77_phone_arr",
+          "name": "手机号码",
+          "val": "",
+          "type": "textarea",
+          "desc": "多个时，使用@间隔",
+          "autoGrow": true,
+          "rows": 2
+        }
+      ],
       "author": "@id77",
       "icons": [
         "https://raw.githubusercontent.com/id77/QuantumultX/master/icon/sim.png",
