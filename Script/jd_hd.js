@@ -685,12 +685,25 @@ try {
               }
 
               if (!window._${prefix}_id77_submit2) {
-                window._${prefix}_id77_submit2 = setInterval(() => {      
-                  const dom = document.querySelector('.buyBtn2');
-                  if (dom) dom.click();
-                  //document.querySelector('.coupon-btns .btn').click();
-                }, 1500);
-                _${prefix}_id77_vConsole.hide();
+                const dom2 = document.querySelector('.buyBtn2');
+                const dom3 = document.querySelector('.van-toast');
+
+                if (dom2) {
+                  window._${prefix}_id77_submit2 = setInterval(()=>{
+                      const flag = dom3.style.display === 'none';
+                      console.log(flag)
+
+                      if (!flag) {
+                          dom2.disabled = 1;
+                          dom2.style.backgroundColor = '#c2c2c2';
+                      } else {
+                          dom2.disabled = 0;
+                          dom2.style.backgroundColor = '';
+                      }
+                      dom2.click();
+                  }, 100);
+                  _${prefix}_id77_vConsole.hide();
+                }
               } else {
                 clearInterval(window._${prefix}_id77_submit2);
                 window._${prefix}_id77_submit2 = null;
