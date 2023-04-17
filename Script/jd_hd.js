@@ -660,6 +660,7 @@ try {
           });
 
           window._${prefix}_id77_submit = null;
+          window._${prefix}_id77_submit2 = null;
           toolList.push({
             name: "抢",
             global: true,
@@ -672,14 +673,25 @@ try {
                   }
                   if (!dom) {
                     dom = document.querySelector('.free_coupon a.coupon');
-                    document.querySelector('.free_coupon').click();
+                    // document.querySelector('.free_coupon').click();
                   }
-                  dom.click();
+                  if (dom) dom.click();
                   //document.querySelector('.coupon-btns .btn').click();
                 }, 600);
                 _${prefix}_id77_vConsole.hide();
               } else {
                 clearInterval(window._${prefix}_id77_submit);
+              }
+
+              if (!window._${prefix}_id77_submit2) {
+                window._${prefix}_id77_submit2 = setInterval(() => {      
+                  const dom = document.querySelector('.buyBtn2');
+                  if (dom) dom.click();
+                  //document.querySelector('.coupon-btns .btn').click();
+                }, 1200);
+                _${prefix}_id77_vConsole.hide();
+              } else {
+                clearInterval(window._${prefix}_id77_submit2);
               }
             },
           });
