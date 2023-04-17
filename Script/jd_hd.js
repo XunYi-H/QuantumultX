@@ -689,7 +689,7 @@ try {
                   const dom = document.querySelector('.buyBtn2');
                   if (dom) dom.click();
                   //document.querySelector('.coupon-btns .btn').click();
-                }, 1300);
+                }, 1500);
                 _${prefix}_id77_vConsole.hide();
               } else {
                 clearInterval(window._${prefix}_id77_submit2);
