@@ -879,11 +879,23 @@ try {
       z-index: 8888;
       font-size:16px;
     }
+    .id77_float {
+      float: left;
+      margin-right: 15px;
+    }
     .tippy-box .el-tgl {
       display: none !important;
     }
     .id77_clicker_main p {
       font-weight: bold;
+    }
+
+    #id77_clicker_timerTime {
+      font-size: 16px;
+      width: 80px; 
+    }
+    #id77_clicker_timerBeforehandTime {
+      font-size: 16px;
     }
 
     .id77_clicker_add {
@@ -1137,9 +1149,25 @@ try {
       </div>
       <div id="id77_timer" style="overflow: hidden">
         <p>定时执行</p>
-        <input type="checkbox" id="id77_clicker_timerFlag" name="timer" />
-        <label for="id77_clicker_timerFlag">启用定时器</label>
-        <input id="id77_clicker_timerTime" type="time" value="17:07:07" step="10" style="font-size: 16px" />
+        <input
+          class="id77_float"
+          type="checkbox"
+          id="id77_clicker_timerFlag"
+          name="timer"
+        />
+        <label class="id77_float" for="id77_clicker_timerFlag"
+          >启用定时器</label
+        >
+        <input class="id77_float" id="id77_clicker_timerTime" type="time" />
+        <input
+          id="id77_clicker_timerBeforehandTime"
+          class="id77_float"
+          type="number"
+          placeholder="可提前0-1000"
+          min="0"
+          max="1000"
+          value="70"
+        />
       </div>
       <div>
         <p>坐标系</p>
@@ -1181,7 +1209,7 @@ try {
         : id77_date.getMinutes();
       document.querySelector('#id77_clicker_timerTime').value = id77_hh + ':' + id77_mm + ':00';
   </script>
-  <script src="https://cdn.jsdelivr.net/gh/id77/QuantumultX@master/Script/clicker_cdnv3.js" ignore></script>
+  <script src="https://cdn.jsdelivr.net/gh/id77/QuantumultX@master/Script/clicker_cdnv4.js" ignore></script>
   `;
 
   // if (/<script.*v(C|c)onsole(\.min)?\.js.+?script>/i.test(html)) {
