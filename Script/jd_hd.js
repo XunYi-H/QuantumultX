@@ -877,6 +877,10 @@ try {
     #id77_clicker {
       background: #fff;
       z-index: 8888;
+      font-size:16px;
+    }
+    .tippy-box .el-tgl {
+      display: none !important;
     }
     .id77_clicker_main p {
       font-weight: bold;
@@ -892,6 +896,39 @@ try {
       text-align: center;
       font-size: 30px;
       margin: 10px auto;
+    }
+
+    #id77_timer input[type="checkbox"] {
+      /*
+      display: none;这样会让tab键无法选取自定义的checkbox，所以使用下面的方法
+      clip 属性剪裁绝对定位元素。
+      */
+      position: absolute;
+      clip: rect(0, 0, 0, 0)
+    }
+
+    #id77_timer input[type="checkbox"] {
+      display: inline-block;
+      width: 48%;
+      margin-top: 10px;
+      margin-left: 5px;
+      text-align: left;
+      box-sizing: border-box;
+    }
+
+    #id77_timer label::before {
+      content: '\\a0';
+      display: inline-block;
+      border: 1px solid silver;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      font-weight: bold;
+    }
+    
+    #id77_timer input[type="checkbox"]:checked+label::before {
+      content: '\\2713';
+      color: #0075ff;
     }
 
     .id77_clicker_main input,
@@ -1098,6 +1135,12 @@ try {
           <option value="count">总次数</option>
         </select>
       </div>
+      <div id="id77_timer" style="overflow: hidden">
+        <p>定时执行</p>
+        <input type="checkbox" id="id77_clicker_timerFlag" name="timer" />
+        <label for="id77_clicker_timerFlag">启用定时器</label>
+        <input id="id77_clicker_timerTime" type="time" value="17:07:07" step="10" style="font-size: 16px" />
+      </div>
       <div>
         <p>坐标系</p>
         <input
@@ -1120,8 +1163,25 @@ try {
           document.querySelector('#id77_clicker_frequency_text').value =
             e.target.value;
         });
+    document
+        .querySelector('#id77_clicker_frequency_text')
+        .addEventListener('input', (e) => {
+          document.querySelector('#id77_clicker_frequency').value =
+            e.target.value;
+        });
+    let id77_time = Date.now(),
+    id77_date = new Date(id77_time + 60 * 1000),
+    id77_hh =
+      id77_date.getHours() < 10
+        ? '0' + id77_date.getHours()
+        : id77_date.getHours(),
+    id77_mm =
+      id77_date.getMinutes() < 10
+        ? '0' + id77_date.getMinutes()
+        : id77_date.getMinutes();
+      document.querySelector('#id77_clicker_timerTime').value = id77_hh + ':' + id77_mm + ':00';
   </script>
-  <script src="https://cdn.jsdelivr.net/gh/id77/QuantumultX@master/Script/clicker_cdnv1.js" ignore></script>
+  <script src="https://cdn.jsdelivr.net/gh/id77/QuantumultX@master/Script/clicker_cdnv3.js" ignore></script>
   `;
 
   // if (/<script.*v(C|c)onsole(\.min)?\.js.+?script>/i.test(html)) {
