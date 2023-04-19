@@ -25932,42 +25932,37 @@
             );
           });
         }
-        if (
-          /^(file:\/\/|safari-web-extension:\/\/)[\s\S]*test_demo\/index\.html$/.test(
-            window.location.href
-          )
-        ) {
-          (Uc = Wc({
-            frequency: '60',
-            coordinate: 1,
-            condition: 'count',
-            conditionValue: 1e4,
-          })),
-            setTimeout(function () {
-              var t = Hc(Uc.optionsTooltip.popper.id),
-                e = Hc(Uc.id);
-              (Uc.arrowTooltip = t),
-                (Uc.clickerArrowTooltip = e),
-                t.show(),
-                e.show(),
-                Uc.dragTooltip.show();
-              var n = setTimeout(function () {
-                  e.hide(), Uc.dragTooltip.hide();
-                }, 3e3),
-                r = document.getElementById('op-'.concat(Uc.id)),
-                o = null;
-              r &&
-                (o = setTimeout(function () {
-                  !1 === r.checked &&
-                    t &&
-                    !0 === t.state.isVisible &&
-                    (t.hide(), r.click());
-                }, 6e3)),
-                Uc.on('dragStart', function () {
-                  clearTimeout(n), o && clearTimeout(o), t.hide(), e.hide();
-                });
-            }, 0);
-        }
+
+        (Uc = Wc({
+          frequency: '60',
+          coordinate: 1,
+          condition: 'count',
+          conditionValue: 1e4,
+        })),
+          setTimeout(function () {
+            var t = Hc(Uc.optionsTooltip.popper.id),
+              e = Hc(Uc.id);
+            (Uc.arrowTooltip = t),
+              (Uc.clickerArrowTooltip = e),
+              t.show(),
+              e.show(),
+              Uc.dragTooltip.show();
+            var n = setTimeout(function () {
+                e.hide(), Uc.dragTooltip.hide();
+              }, 3e3),
+              r = document.getElementById('op-'.concat(Uc.id)),
+              o = null;
+            r &&
+              (o = setTimeout(function () {
+                !1 === r.checked &&
+                  t &&
+                  !0 === t.state.isVisible &&
+                  (t.hide(), r.click());
+              }, 6e3)),
+              Uc.on('dragStart', function () {
+                clearTimeout(n), o && clearTimeout(o), t.hide(), e.hide();
+              });
+          }, 0);
       })(),
       r
     );
